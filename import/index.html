@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>さんぽログを開く</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Sanpo Log</p>
+        <h1>さんぽログを開いています</h1>
+        <p>アプリが開かない場合は、下のボタンからもう一度開けます。</p>
+        <a class="button" id="open-app-link" href="sanpocompass://import">さんぽログで開く</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var sourceParams = new URLSearchParams(window.location.search);
+      var appURL = new URL("sanpocompass://import");
+      ["input", "name", "unreadable"].forEach(function (key) {
+        var value = sourceParams.get(key);
+        if (value) {
+          appURL.searchParams.set(key, value);
+        }
+      });
+
+      var openAppLink = document.getElementById("open-app-link");
+      openAppLink.href = appURL.toString();
+      window.location.replace(appURL.toString());
+    }());
+  </script>
+</body>
+</html>
